@@ -66,6 +66,13 @@
                     latitude="53.8338072"
                     zoom="17"
                     map-type="GoogleMap">
+
+              <gn-poly fill="false">
+                <template is="dom-repeat" items="{{visitedRoutes}}">
+                  <gn-point longitude="{{item.lon}}" latitude="{{item.lat}}"></gn-point>
+                </template>
+              </gn-poly>
+
             </gn-map>
 
             <div>
@@ -91,7 +98,7 @@
     <footer>
       <p>
         <paper-button onclick="run()">Run!</paper-button>
-        <paper-button onclick="loadFile('https://raw.githubusercontent.com/maxlorenz/routing-api/master/routing-api.js')">Beispiel laden</paper-button>
+        <paper-button onclick="loadFile('demo.js')">Beispiel laden</paper-button>
       </p>
     </footer>
 
@@ -100,7 +107,9 @@
         var source = document.querySelector('code-mirror').getSource();
 
         try{
-          eval(source);
+          var script = document.createElement('script');
+          script.text = source;
+          document.body.appendChild(script);
         } catch (e) {
           document.querySelector('#bind').error = e;
           document.querySelector('#bind').selected = 2;
@@ -121,8 +130,6 @@
 
       // Select first tab (map)
       document.querySelector('#bind').selected = 0;
-
-
     </script>
   </body>
 </html>
